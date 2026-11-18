@@ -1,0 +1,23 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Run Flutter tests clean path",
+			"type": "shell",
+			"command": "$src = 'C:\\Users\\admin\\My project\\Assets\\Scenes\\year3\\Mobile app\\Project''\\ManageAura'; $dst = 'C:\\temp\\ManageAura'; Remove-Item -LiteralPath $dst -Recurse -Force -ErrorAction SilentlyContinue; New-Item -ItemType Directory -Force $dst | Out-Null; Get-ChildItem -LiteralPath $src -Force | Where-Object { $_.Name -notin '.git', '.dart_tool', 'build' } | Copy-Item -Destination $dst -Recurse -Force; Set-Location $dst; flutter pub get; flutter test test/widget_test.dart",
+			"args": [],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		},
+		{
+			"label": "Verify Flutter tests",
+			"type": "shell",
+			"command": "$src = 'C:\\Users\\admin\\My project\\Assets\\Scenes\\year3\\Mobile app\\Project''\\ManageAura'; $dst = 'C:\\temp\\ManageAura'; Remove-Item -LiteralPath $dst -Recurse -Force -ErrorAction SilentlyContinue; New-Item -ItemType Directory -Force $dst | Out-Null; Get-ChildItem -LiteralPath $src -Force | Where-Object { $_.Name -notin '.git', '.dart_tool', 'build' } | Copy-Item -Destination $dst -Recurse -Force; Set-Location $dst; flutter test test/widget_test.dart",
+			"args": [],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "test"
+		}
+	]
+}
