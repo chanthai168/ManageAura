@@ -6,7 +6,6 @@ import '../model/supplier.dart';
 import '../model/dashboard_summary.dart';
 
 
-/// Business operations of the stock manager (Home, Product, Transaction, Supplier screens).
 class StockService {
   final Shop shop;
   final DateTime Function() _now;
@@ -22,7 +21,6 @@ class StockService {
     return supplier;
   }
 
-  /// Rule: SKU must be unique inside the shop.
   Product addProduct(Product product) {
     if (shop.products.any((p) => p.sku == product.sku || p.id == product.id)) {
       throw StateError('Product with SKU ${product.sku} already exists');
@@ -38,7 +36,6 @@ class StockService {
     );
   }
 
-  /// Search by name or SKU (case-insensitive) and optionally filter by status chip.
   List<Product> searchProducts({String query = '', StockStatus? status}) {
     final q = query.trim().toLowerCase();
     final result = shop.products.where((p) {
@@ -51,7 +48,6 @@ class StockService {
     return result;
   }
 
-  /// Counts for the chips: All / Low stock / Out of stock.
   Map<String, int> statusCounts() => {
         'all': shop.products.length,
         'low': shop.products.where((p) => p.status == StockStatus.lowStock).length,
@@ -59,8 +55,6 @@ class StockService {
       };
 
 
-  /// Add stock to a product (Add stock / Stock in).
-  /// Preconditions: quantity > 0, product exists, supplier (if given) exists.
   StockTransaction stockIn(String productId, int quantity,
       {String? supplierId, String note = ''}) {
     if (quantity <= 0) throw ArgumentError('Quantity must be greater than 0');
@@ -70,8 +64,6 @@ class StockService {
     return _record(product, TransactionType.stockIn, quantity, quantity, note, supplierId);
   }
 
-  /// Remove stock from a product (Record sale / Stock out).
-  /// Rule: cannot remove more than the quantity on hand.
   StockTransaction stockOut(String productId, int quantity, {String note = ''}) {
     if (quantity <= 0) throw ArgumentError('Quantity must be greater than 0');
     final product = getProduct(productId);
@@ -83,7 +75,6 @@ class StockService {
     return _record(product, TransactionType.stockOut, quantity, -quantity, note, null);
   }
 
-  /// Set the counted quantity ("Adjust Stock" button). Rule: new quantity >= 0.
   StockTransaction adjustStock(String productId, int newQuantity, {String note = ''}) {
     if (newQuantity < 0) throw ArgumentError('Quantity cannot be negative');
     final product = getProduct(productId);
@@ -127,7 +118,6 @@ class StockService {
     );
   }
 
-  /// "Prediction" card: products at or below their low-stock threshold.
   List<Product> predictOutOfStock() =>
       shop.products.where((p) => p.status != StockStatus.inStock).toList();
 

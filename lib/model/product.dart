@@ -11,12 +11,8 @@ class Product {
   int lowStockThreshold;
   String description;
   String category;
-
-  /// Aggregation: a product may be bought from a supplier, but the supplier
-  /// exists independently of the product.
   Supplier? supplier;
 
-  /// Composition: the history belongs to the product and is created with it.
   final List<StockTransaction> history = [];
 
   Product({

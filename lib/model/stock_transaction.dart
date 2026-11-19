@@ -1,9 +1,5 @@
 import 'enums.dart';
 
-/// One stock movement (a row of "Transaction history" / product "History").
-/// [quantity] is always positive; [type] says the direction.
-/// For [TransactionType.adjust], [quantity] is the absolute difference and
-/// [delta] carries the sign.
 class StockTransaction {
   final String id;
   final String productId;
