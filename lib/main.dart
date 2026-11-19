@@ -71,7 +71,6 @@ void main() {
 
 void _title(String text) => print('\n=== $text ===');
 
-/// Runs [action] and prints the rule that stopped it.
 void _tryIt(String label, void Function() action) {
   try {
     action();
